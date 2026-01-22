@@ -1,0 +1,29 @@
+# Directories
+/result/
+/script/
+.venv/
+
+# Python files in script directory
+/script/*.py
+
+# Common heavy/cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+*.egg-info/
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
