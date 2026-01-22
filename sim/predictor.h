@@ -33,7 +33,10 @@ class PREDICTOR {
  public:
    uint32_t nentries; // nombre d'entrées dans la table
    uint32_t countmax; // valeur max atteinte par le compteur à saturation
-
+   uint32_t GHR;     // Gshare
+   uint32_t *LHT;    // Local History Table
+   uint32_t *CPT_Comb; // Choice Predictor Table pour le Combined Predictor
+   uint32_t type;    // Type de prédicteur
    PREDICTOR(char *progname, int argc, char *argv[]);
 
    // The interface to the functions below CAN NOT be changed
