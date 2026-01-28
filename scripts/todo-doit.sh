@@ -28,7 +28,7 @@ if test 1 -ne 0 ; then
 fi
 
 # Liste des benchs
-benchs=$(ls -1 ../results/type0_1-7 | awk -F\. '{print $1}')
+benchs=$(ls -1 ../results/type0_1-6 | awk -F\. '{print $1}')
 
 # Fichier temporaire
 # tmpfile=$(mktemp)
