@@ -42,31 +42,101 @@ Le prédicteur $n$ modal bit est constitué d'un unique tableau contenant de $2^
 \subsection{Résultats}
 Les résultats issus de la simulation sont les suivants.
 \par
+par defaut
+
 \begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_1}
+\includegraphics[width=\linewidth]{graph_type0_1}
 \end{minipage}%
 \hfill
 \begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_2}
+\includegraphics[width=\linewidth]{graph_type0_2}
+\end{minipage}
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type0_3}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type0_4}
+\end{minipage}
+
+gshare
+
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type1_1}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type1_2}
+\end{minipage}
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type1_3}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type1_4}
+\end{minipage}
+local
+
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type2_1}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type2_2}
+\end{minipage}
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type2_3}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type2_4}
+\end{minipage}
+combined
+
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type3_1}
+\end{minipage}%
+\hfill
+\begin{minipage}{.48\linewidth}
+\includegraphics[width=\linewidth]{graph_type3_2}
 \end{minipage}
 
 \begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_3}
+\includegraphics[width=\linewidth]{graph_type3_3}
 \end{minipage}%
 \hfill
 \begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_4}
+\includegraphics[width=\linewidth]{graph_type3_4}
 \end{minipage}
 
-\begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_5}
-\end{minipage}%
-\hfill
-\begin{minipage}{.48\linewidth}
-\includegraphics[width=\linewidth]{graph_6}
-\end{minipage}
+
+
 \subsection{Analyse}
+\subsubsection{Prédicteur par défaut}
 On voit une asymptote due à la disparition des collisions lorsque la taille du prédicteur augmente.
 Le coût du prédicteur est linéaire avec la taille du tableau, et il n'est pas raisonnable de dépasser $2^{16}$ éléments, d'autant que le gain à partir de $2^{12}$ devient très faible.
 Par ailleurs, il y a toujours moins de $7\%$ de mauvaise prédictions, ce qui est remarquable pour une approche aussi simpliste.
+
+\subsubsection{Prédicteur gshare}
+
+On observe une asymptote claire lorsque la taille de la table augmente
+ce qui s'explique par la réduction progressive des collisions d'indexation entre branches partageant la même entrée.
+Le coût du prédicteur étant linéaire avec la taille de la table, il n'est pas pertinent de dépasser une taille de l'ordre de $2^{14}$ entrées.
+d’autant plus que le gain devient très faible au-delà de $2^{12}$
+Grâce à l’utilisation de l’historique global, le prédicteur gshare capture efficacement les corrélations entre branches.
+Ce qui lui permet de maintenir un taux de mauvaises prédictions faible, généralement inférieur à quelques pourcents, même avec des ressources matérielles limitées.
+
+\subsubsection{Prédicteur local}
+Comme pour gshare, une asymptote apparaît lorsque la taille du prédicteur augmente traduisant la diminution des collisions dans la table.
+Toutefois, la convergence est plus lente et le taux de mauvaises prédictions reste globalement plus élevé.
+Le coût matériel augmentant linéairement avec la taille du prédicteur.
+Le gain devient marginal au-delà de $2^{12}$.
+Le prédicteur local a un comportement stable pour les branches régulières.
+
+\subsubsection{Prédicteur combiné}
+Le prédicteur combined présente également une asymptote lorsque la taille de la table augmente, 
+mais celle-ci est atteinte plus rapidement et à un niveau de mauvaises prédictions plus faible.
+Le coût du prédicteur restant linéaire avec la taille des tables et du méta-Prédicteur
+Le gain devient marginal au-delà de $2^{12}$.
+cette approche permet de s'adapter dynamiquement au comportement des branches et d'obtenir systématiquement le meilleur taux de prédiction, souvent inférieur à celui de chacun des prédicteurs pris isolément, ce qui en fait une solution particulièrement efficace et robuste.
 \end{document}
