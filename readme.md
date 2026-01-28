@@ -1,1 +1,1 @@
-il faut modifier todo-doit.sh pour choisir quel predicteur à lancer en ligne 22
+il faut modifier todo-doit.sh mais je ne sais pas quoi exactement modifier
